@@ -14,11 +14,12 @@ It also provides a loop function which executes a user-defined (lambda) function
 
 E.g.
 
-    myapp -o --open open file1
+    myapp -o file1                      (--open=file1 or open file1 would also be possible)
 
     {... opens file1 ...}
 
     myapp > {... waits for user input ...}
+
 
     myapp > save
 
