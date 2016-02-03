@@ -15,15 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\arg_parser\cpp\ArgumentParser.cpp">
+    <ClCompile Include="src\main\cpp\main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\cpp\main.cpp">
+    <ClCompile Include="src\arg_parser\cpp\arg_parser.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\arg_parser\cpp\arg_exception.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\arg_parser\headers\ArgumentParser.hpp">
+    <ClInclude Include="src\arg_parser\headers\arg_parser.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\arg_parser\headers\arg_flags.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\arg_parser\headers\arg.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\arg_parser\headers\arg_exception.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,12 +1,12 @@
 #include <iostream>
 
-#include "../../arg_parser/headers/ArgumentParser.hpp"
+#include "../../arg_parser/ArgumentParser"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-    using namespace hybros;
+    using namespace hyronx;
 
 	ArgumentParser parser(argv[0]);
 	
