@@ -1,0 +1,8 @@
+#ifndef __ARGUMENTPARSER__
+#define __ARGUMENTPARSER__
+
+#include "headers/arg.hpp"
+#include "headers/arg_flags.hpp"
+#include "headers/arg_parser.hpp"
+
+#endif
