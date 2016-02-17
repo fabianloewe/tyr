@@ -35,8 +35,8 @@ public:
     void remove(Argument &arg);
     void remove(std::vector<Argument> &args_v);
 
-	auto get(std::string match_str) const -> const Argument &;
-	auto modify(std::string match_str) -> Argument &;
+	auto getArgument(std::string match_str) const -> const Argument &;
+	auto getArgument(std::string match_str) -> Argument &;
 
 	auto getUserData(std::string match_str) const -> std::string;
 	auto getUserData(Argument &arg) const -> std::string;

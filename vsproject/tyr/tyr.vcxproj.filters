@@ -15,28 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main\cpp\main.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\arg_parser\cpp\arg_parser.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="src\arg_parser\cpp\arg_exception.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\arg_parser\headers\arg_parser.hpp">
+    <ClInclude Include="..\..\src\tyr\headers\arg.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\arg_parser\headers\arg_flags.hpp">
+    <ClInclude Include="..\..\src\tyr\headers\arg_exception.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\arg_parser\headers\arg.hpp">
+    <ClInclude Include="..\..\src\tyr\headers\arg_flags.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="src\arg_parser\headers\arg_exception.hpp">
+    <ClInclude Include="..\..\src\tyr\headers\arg_parser.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\tyr\cpp\arg_exception.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\tyr\cpp\arg_parser.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

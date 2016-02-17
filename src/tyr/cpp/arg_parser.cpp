@@ -122,7 +122,7 @@ void ArgumentParser::remove(std::vector<Argument> &args_v)
 	}
 }
 
-auto ArgumentParser::get(std::string match_str) const -> const Argument &
+auto ArgumentParser::getArgument(std::string match_str) const -> const Argument &
 {
 	auto iter = std::find_if(args.begin(), args.end(), [&](const Argument &current_arg)
 	{
@@ -135,7 +135,7 @@ auto ArgumentParser::get(std::string match_str) const -> const Argument &
 	return *iter;
 }
 
-auto ArgumentParser::modify(std::string match_str) -> Argument &
+auto ArgumentParser::getArgument(std::string match_str) -> Argument &
 {
 	auto iter = std::find_if(args.begin(), args.end(), [&](Argument &current_arg)
 	{
@@ -593,7 +593,7 @@ void ArgumentParser::help(std::string arg_help) const noexcept
 	std::future<std::string> help_str = std::async([this, &arg_help]()
 	{
 		std::stringstream help;
-		auto arg = get(arg_help);
+		auto arg = getArgument(arg_help);
 
 		help << "Extended help:\n\n"
 			<< "    Arguments/Command:\n";
