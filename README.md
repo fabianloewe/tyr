@@ -1,9 +1,6 @@
-# ArgumentParser
+# Tyr
 
-This is a simple argument parser in C++11 which provides short and long arguments as well as commands.
-
-
-E.g.
+This is a simple argument parser in C++11 which can parse arguments and commands in the following format:
 
           short  long   command  additional arg
           
