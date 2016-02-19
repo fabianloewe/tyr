@@ -5,4 +5,8 @@
 #include "headers/arg_flags.hpp"
 #include "headers/arg_parser.hpp"
 
+#ifdef _MSC_VER
+#pragma comment(lib, "tyr.lib")
+#endif
+
 #endif

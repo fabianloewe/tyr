@@ -9,7 +9,7 @@
 #include <locale>
 #include <future>
 
-using namespace hyronx;
+using namespace tyr;
 
 ArgumentParser::ArgumentParser(std::string exec_name) noexcept :
 	args(),
@@ -40,7 +40,7 @@ ArgumentParser::~ArgumentParser()
 	parsed.clear();
 }
 
-void ArgumentParser::add(std::string s_arg, std::string l_arg, std::string cmd, std::string desc, std::string ex, std::function<void(std::string)> func, ArgumentFlags flags) noexcept
+void ArgumentParser::add(std::string s_arg, std::string l_arg, std::string cmd, std::string desc, std::string ex, ArgumentFlags flags, std::function<void(std::string)> func) noexcept
 {
     Argument arg;
     arg.short_arg = s_arg;
@@ -259,7 +259,7 @@ void ArgumentParser::setAlias(Argument &existing_arg, Argument &alias)
 	args.push_back(alias);
 }
 
-void ArgumentParser::parse(int argc, char **argv)
+void ArgumentParser::parse(int argc, char **argv, bool execute_funcs)
 {
 	saveExecName(argv[0]);
 
@@ -284,12 +284,20 @@ void ArgumentParser::parse(int argc, char **argv)
 			{
 				std::string user_data = argv[++i];
 				if(compareArgs(*iter, user_data))
-					argv--;					
+					argv--;	
+
+				if(execute_funcs)
+					iter->func(user_data);
 
 				parsed.push_back(std::tuple<ArgIter, std::string>(iter, user_data));
 			}
 			else
+			{
+				if(execute_funcs)
+					iter->func("");
+
 				parsed.push_back(std::tuple<ArgIter, std::string>(iter, ""));
+			}
 		}
     }
 }

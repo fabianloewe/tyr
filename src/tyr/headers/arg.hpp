@@ -6,7 +6,7 @@
 
 #include "arg_flags.hpp"
 
-namespace hyronx
+namespace tyr
 {
 
 class Argument

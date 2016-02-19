@@ -1,6 +1,6 @@
 #include "../headers/arg_exception.hpp"
 
-using namespace hyronx;
+using namespace tyr;
 
 ArgumentException::ArgumentException(ErrorCode error) :
 	ex_code(error),

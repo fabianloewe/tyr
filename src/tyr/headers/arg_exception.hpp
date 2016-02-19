@@ -4,7 +4,7 @@
 #include <exception>
 #include <string>
 
-namespace hyronx
+namespace tyr
 {
 	
 class ArgumentException : public std::exception

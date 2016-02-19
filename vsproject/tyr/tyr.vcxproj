@@ -138,6 +138,7 @@
     <ClInclude Include="..\..\src\tyr\headers\arg_exception.hpp" />
     <ClInclude Include="..\..\src\tyr\headers\arg_flags.hpp" />
     <ClInclude Include="..\..\src\tyr\headers\arg_parser.hpp" />
+    <ClInclude Include="..\..\src\tyr\headers\arg_utility.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\tyr\cpp\arg_exception.cpp" />

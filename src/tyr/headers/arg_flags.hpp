@@ -3,7 +3,7 @@
 
 #include <vector>
 
-namespace hyronx
+namespace tyr
 {
 
 class ArgumentFlags

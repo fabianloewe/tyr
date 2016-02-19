@@ -30,6 +30,9 @@
     <ClInclude Include="..\..\src\tyr\headers\arg_parser.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\tyr\headers\arg_utility.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\tyr\cpp\arg_exception.cpp">
