@@ -386,11 +386,11 @@ void ArgumentParser::addBaseArgs(std::string &&prog_name) noexcept
 	help_arg.data_info = "command";
 	help_arg.description = "Shows information for registered commands";
 	help_arg.example = exec_name + " help";
-	help_arg.flags.enableShortArg(true);
-	help_arg.flags.enableLongArg(true);
-	help_arg.flags.enableCommand(true);
-	help_arg.flags.setOptional(true);
-	help_arg.flags.allowUserData(true);
+	help_arg.flags |= (ArgumentFlags::SHORT_ARG | 
+		ArgumentFlags::LONG_ARG |
+		ArgumentFlags::COMMAND	| 
+		ArgumentFlags::OPTIONAL | 
+		ArgumentFlags::USER_DATA_ALLOWED);
 	help_arg.func = [&](std::string string)
 	{
 		if(string.empty())
@@ -405,10 +405,9 @@ void ArgumentParser::addBaseArgs(std::string &&prog_name) noexcept
 	exit_arg.description = "Exits this application";
 	exit_arg.data_info = "exit_code";
 	exit_arg.example = exec_name + " > exit";
-	exit_arg.flags.enableCommand(true);
-	exit_arg.flags.setOptional(true);
-	exit_arg.flags.setLoopOnly(true);
-	exit_arg.flags.allowUserData(true);
+	exit_arg.flags |= (ArgumentFlags::COMMAND |
+		ArgumentFlags::OPTIONAL |
+		ArgumentFlags::USER_DATA_ALLOWED);
 	exit_arg.func = [&](std::string string)
 	{
 		int exit_code = 0;

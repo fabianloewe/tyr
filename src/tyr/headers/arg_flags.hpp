@@ -9,130 +9,93 @@ namespace tyr
 class ArgumentFlags
 {
 public:
-	ArgumentFlags() :
-		flags(7, false) 
+	enum Flags
+	{
+		SHORT_ARG			= 0x1,
+		LONG_ARG			= 0x2,
+		COMMAND				= 0x4,
+		OPTIONAL			= 0x8,
+		LOOP_ONLY			= 0x10,
+		USER_DATA_ALLOWED	= 0x20,
+		USER_DATA_REQUIRED	= 0x40
+	};
+
+public:
+	ArgumentFlags(unsigned int flags = 0) :
+		af_flags(flags)
 	{
 	}
 
-	ArgumentFlags(bool short_arg, bool long_arg, bool cmd, bool optional, bool loop_only, bool has_user_data, bool needs_user_data) :
-		flags(7)
+	auto hasShortArg() const
 	{
-		flags[0] = short_arg;
-		flags[1] = long_arg;
-		flags[2] = cmd;
-		flags[3] = optional;
-		flags[4] = loop_only;
-		flags[5] = has_user_data;
-		flags[6] = needs_user_data;
+		return (af_flags & SHORT_ARG) ? true : false;
 	}
 
-	virtual ~ArgumentFlags() {
-		flags.clear();
+	auto hasLongArg() const
+	{
+		return (af_flags & LONG_ARG) ? true : false;
 	}
 
-	auto hasShortArg() const 
+	auto hasCommand() const
 	{
-		return flags[0];
+		return (af_flags & COMMAND) ? true : false;
 	}
 
-	auto hasLongArg() const 
+	auto isOptional() const
 	{
-		return flags[1];
-	}
-
-	auto hasCommand() const 
-	{
-		return flags[2];
-	}
-
-	auto isOptional() const 
-	{
-		return flags[3];
+		return (af_flags & OPTIONAL) ? true : false;
 	}
 
 	auto isLoopOnly() const
 	{
-		return flags[4];
+		return (af_flags & LOOP_ONLY) ? true : false;
 	}
 
 	auto isUserDataAllowed() const
 	{
-		return flags[5];
+		return (af_flags & USER_DATA_ALLOWED) ? true : false;
 	}
 
 	auto isUserDataRequired() const
 	{
-		return flags[6];
+		return (af_flags & USER_DATA_REQUIRED) ? true : false;
 	}
 
-
-	void enableShortArg(bool b) 
+	auto operator ==(const ArgumentFlags &other) const
 	{
-		flags[0] = b;
+		return (af_flags & other.af_flags) ? true : false;
 	}
 
-	void enableLongArg(bool b) 
+	auto operator !=(const ArgumentFlags &other) const
 	{
-		flags[1] = b;
+		return (af_flags & other.af_flags) ? false : true;
 	}
 
-	void enableCommand(bool b)
+	auto operator &(const ArgumentFlags &other) const -> bool
 	{
-		flags[2] = b;
+		return (af_flags & other.af_flags) ? true : false;
 	}
 
-	void setOptional(bool b)
+	auto operator &=(const ArgumentFlags &other) -> ArgumentFlags &
 	{
-		flags[3] = b;
-	}
-
-	void setLoopOnly(bool b)
-	{
-		flags[4] = b;
-	}
-
-	void allowUserData(bool b)
-	{
-		flags[5] = b;
-		flags[6] = false;
-	}
-
-	void requiresUserData(bool b)
-	{
-		flags[5] = b;
-		flags[6] = b;
-	}
-
-	auto operator =(ArgumentFlags &other)
-	{
-		flags.clear();
-		flags = other.flags;
+		af_flags &= other.af_flags;
 		return *this;
 	}
 
-	auto operator [](int position) {
-		return flags[position];
-	}
-
-	auto operator ==(ArgumentFlags &other) const
+	auto operator |(const ArgumentFlags &other) const -> bool
 	{
-		for(int i = 0; i < flags.size(); i++)
-		{
-			if(flags[i] != other[i])
-				return false;
-		}
-
-		return true;
+		return (af_flags | other.af_flags) ? true : false;
 	}
 
-	auto operator !=(ArgumentFlags &other) const {
-		return (*this == other) ? false : true;
+	auto operator |=(const ArgumentFlags &other) -> ArgumentFlags &
+	{
+		af_flags |= other.af_flags;
+		return *this;
 	}
 
-protected:
-	std::vector<bool> flags;
+private:
+	unsigned int af_flags;
 };
-
 
 }
 
