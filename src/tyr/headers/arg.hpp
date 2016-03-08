@@ -6,7 +6,7 @@
 
 #include "arg_flags.hpp"
 
-namespace tyr
+namespace CPM_TYR_CN
 {
 
 class Argument

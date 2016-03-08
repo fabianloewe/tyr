@@ -9,7 +9,7 @@
 #include <locale>
 #include <future>
 
-using namespace tyr;
+using namespace CPM_TYR_CN;
 
 ArgumentParser::ArgumentParser(std::string exec_name) noexcept :
 	args(),

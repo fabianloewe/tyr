@@ -3,7 +3,7 @@
 
 #include <vector>
 
-namespace tyr
+namespace CPM_TYR_CN
 {
 
 class ArgumentFlags

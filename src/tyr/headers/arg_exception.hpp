@@ -4,7 +4,7 @@
 #include <exception>
 #include <string>
 
-namespace tyr
+namespace CPM_TYR_CN
 {
 	
 class ArgumentException : public std::exception

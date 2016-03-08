@@ -9,4 +9,11 @@
 #pragma comment(lib, "tyr.lib")
 #endif
 
+namespace hyronx
+{
+
+namespace tyr = CPM_TYR_CN;
+
+}
+
 #endif

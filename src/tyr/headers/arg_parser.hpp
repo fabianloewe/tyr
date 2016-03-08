@@ -17,7 +17,7 @@
 #include "arg_flags.hpp"
 #include "arg_utility.hpp"
 
-namespace tyr
+namespace CPM_TYR_CN
 {
 
 class ArgumentParser 

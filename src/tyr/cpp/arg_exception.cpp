@@ -1,6 +1,6 @@
 #include "../headers/arg_exception.hpp"
 
-using namespace tyr;
+using namespace CPM_TYR_CN;
 
 ArgumentException::ArgumentException(ErrorCode error) :
 	ex_code(error),
