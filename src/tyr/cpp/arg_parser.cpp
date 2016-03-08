@@ -51,19 +51,26 @@ void ArgumentParser::add(std::string s_arg, std::string l_arg, std::string cmd, 
 	arg.func = func;
 	arg.flags = flags;
 
-	// If one of the arguments is empty disable it (!ENABLE_*)
-	arg.flags[0] = (arg.short_arg.empty()) ? false : true;
-	arg.flags[1] = (arg.long_arg.empty()) ? false : true;
-	arg.flags[2] = (arg.command.empty()) ? false : true;
+	arg.flags &= (ArgumentFlags::SHORT_ARG | ArgumentFlags::LONG_ARG | ArgumentFlags::COMMAND);
+	if(!arg.short_arg.empty())
+		arg.flags |= ArgumentFlags::SHORT_ARG;
+	if(!arg.short_arg.empty())
+		arg.flags |= ArgumentFlags::LONG_ARG;
+	if(!arg.short_arg.empty())
+		arg.flags |= ArgumentFlags::COMMAND;
 
     args.push_back(arg);
 }
 
 void ArgumentParser::add(Argument &arg) noexcept
 {
-	arg.flags[0] = (arg.short_arg.empty()) ? false : true;
-	arg.flags[1] = (arg.long_arg.empty()) ? false : true;
-	arg.flags[2] = (arg.command.empty()) ? false : true;
+	arg.flags &= (ArgumentFlags::SHORT_ARG | ArgumentFlags::LONG_ARG | ArgumentFlags::COMMAND);
+	if(!arg.short_arg.empty())
+		arg.flags |= ArgumentFlags::SHORT_ARG;
+	if(!arg.short_arg.empty())
+		arg.flags |= ArgumentFlags::LONG_ARG;
+	if(!arg.short_arg.empty())
+		arg.flags |= ArgumentFlags::COMMAND;
 
     args.push_back(arg);
 }
@@ -75,9 +82,13 @@ void ArgumentParser::add(std::vector<Argument> &args_v) noexcept
 
 	for(auto &arg : args)
 	{
-		arg.flags[0] = (arg.short_arg.empty()) ? false : true;
-		arg.flags[1] = (arg.long_arg.empty()) ? false : true;
-		arg.flags[2] = (arg.command.empty()) ? false : true;
+		arg.flags &= (ArgumentFlags::SHORT_ARG | ArgumentFlags::LONG_ARG | ArgumentFlags::COMMAND);
+		if(!arg.short_arg.empty())
+			arg.flags |= ArgumentFlags::SHORT_ARG;
+		if(!arg.short_arg.empty())
+			arg.flags |= ArgumentFlags::LONG_ARG;
+		if(!arg.short_arg.empty())
+			arg.flags |= ArgumentFlags::COMMAND;
 	}
 }
 
@@ -200,9 +211,13 @@ void ArgumentParser::setAlias(std::string existing_arg, Argument &alias)
 		throw ArgumentException(ArgumentException::ALIAS_ERROR, "The argument " + existing_arg + " does not exist");
 
 	alias.flags = iter->flags;
-	alias.flags[0] = (alias.short_arg.empty()) ? false : true;
-	alias.flags[1] = (alias.long_arg.empty()) ? false : true;
-	alias.flags[2] = (alias.command.empty()) ? false : true;
+	alias.flags &= (ArgumentFlags::SHORT_ARG | ArgumentFlags::LONG_ARG | ArgumentFlags::COMMAND);
+	if(!alias.short_arg.empty())
+		alias.flags |= ArgumentFlags::SHORT_ARG;
+	if(!alias.short_arg.empty())
+		alias.flags |= ArgumentFlags::LONG_ARG;
+	if(!alias.short_arg.empty())
+		alias.flags |= ArgumentFlags::COMMAND;
 
 	alias.func = iter->func;
 	alias.example = iter->example;
@@ -211,14 +226,17 @@ void ArgumentParser::setAlias(std::string existing_arg, Argument &alias)
 	if(alias.description.empty())
 	{
 		// Choose the most meaningful and non-empty argument		[A bit ugly but short]
-		// First check flag 2 if false iter->command is empty. Then check flag 1 and if this is false and so long_arg is empty use short_arg
-		std::string &arg_descript = (iter->flags[2]) ? iter->command : (iter->flags[1] ? iter->long_arg : iter->short_arg);
+		// At first check if COMMAND flag is set. If not no command is set
+		std::string &arg_descript = (iter->flags & ArgumentFlags::COMMAND) ? iter->command : 
+			// Then check if LONG_ARG flags is set. If not there is also no long argument
+			// so use short argument as description
+			((iter->flags & ArgumentFlags::LONG_ARG) ? iter->long_arg : iter->short_arg);
 		alias.description = "This is an alias for " + arg_descript;
 	}
 
 	if(alias.long_description.empty())
 	{
-		std::string &arg_descript = (iter->flags[2]) ? iter->command : (iter->flags[1] ? iter->long_arg : iter->short_arg);
+		std::string &arg_descript = (iter->flags & ArgumentFlags::COMMAND) ? iter->command : ((iter->flags & ArgumentFlags::LONG_ARG) ? iter->long_arg : iter->short_arg);
 		alias.long_description = "This is an alias for " + arg_descript + ". See the help for " + arg_descript + " for more information.";
 	}
 }
@@ -226,9 +244,13 @@ void ArgumentParser::setAlias(std::string existing_arg, Argument &alias)
 void ArgumentParser::setAlias(Argument &existing_arg, Argument &alias)
 {
 	alias.flags = existing_arg.flags;
-	alias.flags[0] = (alias.short_arg.empty()) ? false : true;
-	alias.flags[1] = (alias.long_arg.empty()) ? false : true;
-	alias.flags[2] = (alias.command.empty()) ? false : true;
+	alias.flags &= (ArgumentFlags::SHORT_ARG | ArgumentFlags::LONG_ARG | ArgumentFlags::COMMAND);
+	if(!alias.short_arg.empty())
+		alias.flags |= ArgumentFlags::SHORT_ARG;
+	if(!alias.short_arg.empty())
+		alias.flags |= ArgumentFlags::LONG_ARG;
+	if(!alias.short_arg.empty())
+		alias.flags |= ArgumentFlags::COMMAND;
 
 	auto iter = std::find_if(args.begin(), args.end(), [&](Argument &arg)
 	{
@@ -245,14 +267,17 @@ void ArgumentParser::setAlias(Argument &existing_arg, Argument &alias)
 	if(alias.description.empty())
 	{
 		// Choose the most meaningful and non-empty argument		[A bit ugly but short]
-		// First check flag 2 if false iter->command is empty. Then check flag 1 and if this is false and so long_arg is empty use short_arg
-		std::string &arg_descript = (iter->flags[2]) ? iter->command : (iter->flags[1] ? iter->long_arg : iter->short_arg);
+		// At first check if COMMAND flag is set. If not no command is set
+		std::string &arg_descript = (iter->flags & ArgumentFlags::COMMAND) ? iter->command :
+			// Then check if LONG_ARG flags is set. If not there is also no long argument
+			// so use short argument as description
+			((iter->flags & ArgumentFlags::LONG_ARG) ? iter->long_arg : iter->short_arg);
 		alias.description = "This is an alias for " + arg_descript;
 	}
 
 	if(alias.long_description.empty())
 	{
-		std::string &arg_descript = (iter->flags[2]) ? iter->command : (iter->flags[1] ? iter->long_arg : iter->short_arg);
+		std::string &arg_descript = (iter->flags & ArgumentFlags::COMMAND) ? iter->command : ((iter->flags & ArgumentFlags::LONG_ARG) ? iter->long_arg : iter->short_arg);
 		alias.long_description = "This is an alias for " + arg_descript + ". See the help for " + arg_descript + " for more information.";
 	}
 
