@@ -30,3 +30,10 @@ endif()
 # Include CPM modules or externals here (with CPM_AddModule).
 
 CPM_InitModule(${CPM_MODULE_NAME})
+
+file(GLOB Sources
+	"src/tyr/tyr"
+	"src/tyr/cpp/*.cpp"
+	"src/tyr/headers/*.hpp")
+
+add_library(${CPM_LIB_TARGET_NAME} ${Sources})
