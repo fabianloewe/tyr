@@ -32,8 +32,8 @@ endif()
 CPM_InitModule(${CPM_MODULE_NAME})
 
 file(GLOB Sources
-	"src/tyr/tyr"
-	"src/tyr/cpp/*.cpp"
-	"src/tyr/headers/*.hpp")
+	"tyr/tyr"
+	"tyr/cpp/*.cpp"
+	"tyr/headers/*.hpp")
 
 add_library(${CPM_LIB_TARGET_NAME} ${Sources})
